@@ -135,7 +135,6 @@ class ArraySum extends RecursiveTask<Integer> {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             return left.join() + right.join();
         }
     }
