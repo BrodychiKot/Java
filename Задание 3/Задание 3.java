@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-//Задаём размеры очереди и количество потоков, а так же типы файлов
+//Задаём размеры очереди и количество потоков, а так же типы файлов 
 public class Main {
     public static void main(String[] args) {
         FileQueue queue = new FileQueue(5);
