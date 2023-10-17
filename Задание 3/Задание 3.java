@@ -89,7 +89,7 @@ class FileHandler implements Runnable {
         this.lock = lock;
         this.condition = condition;
     }
-
+//Обработка файлов определённое время до заполнения очереди
     @Override
     public void run() {
         while (true) {
@@ -125,7 +125,7 @@ class FileQueue {
     public FileQueue(int capacity) {
         this.capacity = capacity;
     }
-
+//Добавление файла в очередь
     public void add(File file) throws InterruptedException {
         lock.lock();
         try {
@@ -138,7 +138,6 @@ class FileQueue {
             lock.unlock();
         }
     }
-
     public void remove() throws InterruptedException {
         lock.lock();
         try {
