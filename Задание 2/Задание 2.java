@@ -3,7 +3,7 @@ import java.lang.Thread;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-
+//Класс main позволяет с помощью Future вводить значение во время обработки другого запроса
 public class Main {
     public static void main(String[] args) throws Exception {
         ExecutorService es = Executors.newFixedThreadPool(2);
@@ -23,7 +23,7 @@ public class Main {
         es.shutdown();
     }
 }
-
+//Класс MyRunnable реализует возведение числа в кадрат и искуственную задержку
 class MyRunnable implements Runnable {
     Integer number;
     public MyRunnable(int number) {
@@ -35,7 +35,7 @@ class MyRunnable implements Runnable {
         try {
             String threadName = Thread.currentThread().getName();
 
-            System.out.println("["+threadName+"] Waiting for response... [Math.pow("+number+",2)]");
+            System.out.println(" Ожидание операции...");
 
             long random = (long)(Math.random() * 4000) + 1000;
             double result = Math.pow(number, 2);
@@ -43,9 +43,8 @@ class MyRunnable implements Runnable {
             Thread.sleep(random);
 
             System.out.println(
-                "["+threadName+"]" +
-                " Square of the number " + number + " is: " + result +
-                " [response time: " + random + "ms]"
+                " Квадрат " + number + " это: " + result +
+                " [Время расчёта: " + random + "мс]"
             );
         } catch (Exception ex) {
             ex.printStackTrace(System.out);
