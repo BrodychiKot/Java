@@ -64,7 +64,7 @@ public class Main {
         
         // Расчёт с помошью ForkJoin
         ForkJoinPool fjp = new ForkJoinPool();
-        ArraySum task = new ArraySum(array, 0, array.length);
+        SumFork task = new SumFork(array, 0, array.length);
         long timeFork = System.currentTimeMillis();
         long memoryFork = Runtime.getRuntime().freeMemory();
         sumFork = fjp.invoke(task);
@@ -106,11 +106,11 @@ class SumThread extends Thread{
     }
 }
 // Расчёт с помошью Thread cуммы 
-class ArraySum extends RecursiveTask<Integer> {
+class SumFork extends RecursiveTask<Integer> {
     int[] array;
     int start, end;
 
-    public ArraySum(int[] array, int start, int end) {
+    public SumFork(int[] array, int start, int end) {
         this.array = array;
         this.start = start;
         this.end = end;
@@ -123,8 +123,8 @@ class ArraySum extends RecursiveTask<Integer> {
         } else {
             int mid = (start + end) / 2;
 
-            ArraySum left = new ArraySum(array, start, mid);
-            ArraySum right = new ArraySum(array, mid, end);
+            SumFork left = new SumFork(array, start, mid);
+            SumFork right = new SumFork(array, mid, end);
 
             left.fork();
             right.fork();
