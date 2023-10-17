@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
-
+         // Создание массива и расчёт сумм, времени и памяти в классе Main
 public class Main {
     public static void main(String[] args) throws Exception {
         int arrayLength = 10000;
@@ -20,7 +20,7 @@ public class Main {
             array[i] = rd.nextInt(10);
         }
 
-        // Sequence calculation
+        // Последовательный расчёт
         long timeSequence = System.currentTimeMillis();
         long memorySeq = Runtime.getRuntime().freeMemory();
         for (int value : array) {
@@ -31,7 +31,7 @@ public class Main {
         memorySeq = memorySeq - Runtime.getRuntime().freeMemory();
 
 
-        // Thread calculation
+        // Расчёт с помошью Thread 
         long timeThread = System.currentTimeMillis();
         long memoryThr = Runtime.getRuntime().totalMemory();
 
@@ -61,23 +61,22 @@ public class Main {
 
         timeThread = System.currentTimeMillis() - timeThread;
         memoryThr = memoryThr - Runtime.getRuntime().freeMemory();
-
+        
+        // Расчёт с помошью ForkJoin
         ForkJoinPool fjp = new ForkJoinPool();
         ArraySum task = new ArraySum(array, 0, array.length);
-
-        // Fork calculation
         long timeFork = System.currentTimeMillis();
         long memoryFork = Runtime.getRuntime().freeMemory();
         sumFork = fjp.invoke(task);
         timeFork = System.currentTimeMillis() - timeFork;
         memoryFork = memoryFork - Runtime.getRuntime().freeMemory();
 
-        System.out.println("Sum: " + sum + ". Time: " + timeSequence + ". Memory: " + memorySeq + " [Sequence]");
-        System.out.println("Sum: " + sumThread + ". Time: " + timeThread+ ". Memory: " + memoryThr  + " [Thread]");
-        System.out.println("Sum: " + sumFork + ". Time: " + timeFork + ". Memory: " + memoryFork + " [Fork]");
+        System.out.println("Сумма= " + sum + ". Время: " + timeSequence + " мс. Задействовано памяти: " + memorySeq + " байт. [Последовательно]");
+        System.out.println("Сумма= " + sumThread + ". Время: " + timeThread+ " мс. Задействовано памяти: " + memoryThr  + " байт. [Thread]");
+        System.out.println("Сумма= " + sumFork + ". Время: " + timeFork + " мс. Задействовано памяти: " + memoryFork + " байт. [ForkJoin]");
     }
 }
-
+// Расчёт с помошью Thread cуммы 
 class SumThread extends Thread{
     private final int[] array;
     private int sum = 0;
@@ -106,7 +105,7 @@ class SumThread extends Thread{
         return this.sum;
     }
 }
-
+// Расчёт с помошью Thread cуммы 
 class ArraySum extends RecursiveTask<Integer> {
     int[] array;
     int start, end;
