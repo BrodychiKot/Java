@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
+//Задаём размеры очереди и количество потоков, а так же типы файлов
 public class Main {
     public static void main(String[] args) {
         FileQueue queue = new FileQueue(5);
@@ -22,7 +22,7 @@ public class Main {
         gt.start();
     }
 }
-
+//Файл с размером и типом
 class File {
     String type;
     Integer size;
@@ -32,7 +32,7 @@ class File {
         this.size = size;
     }
 }
-
+//Генератор файлов 
 class FileGenerator implements Runnable {
     private final FileQueue queue;
     private final Lock lock;
@@ -46,7 +46,7 @@ class FileGenerator implements Runnable {
         this.condition = condition;
         this.types = types;
     }
-
+//Создание файла случайного типа и размера, если очередь не заполнена.
     @Override
     public void run() {
         while (true) {
@@ -76,7 +76,7 @@ class FileGenerator implements Runnable {
         }
     }
 }
-
+//Обработка файлов
 class FileHandler implements Runnable {
     private final FileQueue queue;
     private final String type;
@@ -114,7 +114,7 @@ class FileHandler implements Runnable {
         }
     }
 }
-
+//Очередь
 class FileQueue {
     public int capacity;
     public Queue<File> queue = new LinkedList<>();
